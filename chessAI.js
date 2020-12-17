@@ -1,4 +1,4 @@
-const { Chess } = require('./chess.js');
+const { Chess } = require('./node_modules/chess.js');
 
 // Position bonus for pieces
 // Relative to white side. For black side ,  do 7 - index for each index
