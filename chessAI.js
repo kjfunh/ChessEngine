@@ -1,4 +1,4 @@
-const { Chess } = require('./node_modules/chess.js');
+//const { Chess } = require('chess.js');
 
 // Position bonus for pieces
 // Relative to white side. For black side ,  do 7 - index for each index
@@ -81,7 +81,6 @@ function getPositionValue(piece, i, j, player)
     if(player === "b")
     {
         i = 7-i;
-        j = 7-j;
     }
     let value = 0;
     let pieceLowerCase = piece.type.toLowerCase();
@@ -134,10 +133,10 @@ function evaluateBoard(game, player)
     {
         for(var j = 0; j <8; j ++)
         {
-            piece = board[i][j];
+            let piece = board[i][j];
             if (piece !== null)
             {
-                pieceValue = getPieceVal(piece);
+                let pieceValue = getPieceVal(piece);
                 if(piece.color === player)
                 {
                     totalScore = totalScore + pieceValue;
@@ -160,13 +159,13 @@ function evaluateBoard(game, player)
 function MinMaxSearch(game, player, turn, max_depth, cur_depth, alpha, beta)
 {
     // Max search depth, return board evaluation value
-    if(cur_depth == max_depth)
+    if(cur_depth === max_depth)
     {
         return evaluateBoard(game, player);
     }
     let moves = game.moves();
     // Maximize
-    if(turn == 0)
+    if(turn === 0)
     {
         let bestValue = -1000000;
         for(let i = 0; i < moves.length; i++)
@@ -231,19 +230,5 @@ function getBestMove(game_input, player)
     return moves[bestIndex];
 }
 
-
-const chess = new Chess();
-
-
-while (!chess.game_over()) {
-    let bestMove = getBestMove(chess, chess.turn());
-    chess.move(bestMove)
-    console.log(chess.ascii())
-};
-
-/*
-chess.move('a3')
-console.log(chess.ascii())
-chess.move('Nc6')
-console.log(chess.ascii())*/
+export {getBestMove}
 
